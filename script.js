@@ -239,21 +239,32 @@ document.querySelectorAll('[data-count]').forEach(el => {
 (function addCarouselStyles() {
   const style = document.createElement('style');
   style.textContent = `
-    .testimonials-carousel { overflow: hidden; }
+    .testimonials-carousel { overflow: hidden; position: relative; }
     .testimonials-track {
       display: flex;
       transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      align-items: stretch;
     }
     .testimonials-track .testimonial-card {
       flex: 0 0 calc(100% / 3);
       min-width: calc(100% / 3);
-      padding: 0 12px;
+      max-width: calc(100% / 3);
+      box-sizing: border-box;
+      padding: 0 10px;
+      overflow: hidden;
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+    .testimonials-track .testimonial-card > div,
+    .testimonials-track .testimonial-card > p {
+      overflow-wrap: break-word;
+      word-break: break-word;
     }
     @media (max-width: 1024px) {
-      .testimonials-track .testimonial-card { flex: 0 0 50%; min-width: 50%; }
+      .testimonials-track .testimonial-card { flex: 0 0 50%; min-width: 50%; max-width: 50%; }
     }
     @media (max-width: 768px) {
-      .testimonials-track .testimonial-card { flex: 0 0 100%; min-width: 100%; }
+      .testimonials-track .testimonial-card { flex: 0 0 100%; min-width: 100%; max-width: 100%; }
     }
     .carousel-controls {
       display: flex;
@@ -263,8 +274,8 @@ document.querySelectorAll('[data-count]').forEach(el => {
       margin-top: 32px;
     }
     .carousel-btn {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       border: 1.5px solid var(--clr-border);
       color: var(--clr-text-muted);
@@ -275,14 +286,15 @@ document.querySelectorAll('[data-count]').forEach(el => {
       transition: all 0.25s ease;
       background: var(--clr-bg-card);
       cursor: pointer;
-      backdrop-filter: blur(10px);
+      flex-shrink: 0;
     }
     .carousel-btn:hover {
       border-color: var(--clr-primary);
       color: var(--clr-primary);
       transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(29,110,245,0.15);
     }
-    .carousel-dots { display: flex; gap: 8px; }
+    .carousel-dots { display: flex; gap: 8px; align-items: center; }
     .carousel-dot {
       width: 8px;
       height: 8px;
